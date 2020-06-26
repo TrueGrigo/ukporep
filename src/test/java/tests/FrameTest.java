@@ -21,10 +21,6 @@ import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
-/**
-*
-* @author black
-*/
 public class FrameTest {
  private FrameFixture window;
 

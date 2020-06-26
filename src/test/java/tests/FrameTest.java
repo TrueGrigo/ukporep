@@ -11,6 +11,9 @@ package tests;
  */
 
 import com.mycompany.mavenproject2.Frame;
+import com.mycompany.mavenproject2.point;
+import static com.mycompany.mavenproject2.Program.AStarsearch;
+import com.mycompany.mavenproject2.point;
 import org.assertj.swing.edt.FailOnThreadViolationRepaintManager;
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.fixture.FrameFixture;
@@ -25,43 +28,96 @@ import org.junit.Before;
 public class FrameTest {
  private FrameFixture window;
 
- @Before
- public void setUp() {
- Frame frame = GuiActionRunner.execute(() -> new Frame());
- window = new FrameFixture(frame);
- window.show(); // shows the frame to test
- }
- @Test
- public void ExpectFillAllBoxesAndGetResoult() throws InterruptedException {
 
- window.textBox("i1").enterText("0");
- window.textBox("i2").enterText("0");
- window.textBox("i3").enterText("2");
- window.textBox("i4").enterText("2");
- window.button("Enter").click();
- window.textBox("i5").requireText("0-0,1-1,2-2,");
+ @Test
+ public void ExpecterPath1() throws InterruptedException {
+int grid[][] =
+{
+{ 1, 1, 1, 1, 1, 0, 1, 1, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 0, 0, 0, 1 },
+{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
+};
+point src = new point(0,0);
+point dest = new point(4,9);
+ assertEquals("0-0,1-0,2-0,3-0,4-1,5-2,6-3,7-4,8-5,8-6,8-7,8-8,7-9,6-9,5-9,4-9,", AStarsearch(grid, src, dest));
  }
  @Test
- public void ExpectFillAllBoxesAndGetInvalid() throws InterruptedException {
+ public void ExpecterPath2() throws InterruptedException {
+int grid[][] =
+{
+{ 1, 1, 1, 1, 1, 0, 1, 1, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 0, 0, 0, 1 },
+{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
+};
+point src = new point(4,9);
+point dest = new point(0,0);
+ assertEquals("4-9,5-9,6-9,7-9,8-8,8-7,8-6,8-5,7-4,6-4,5-4,4-4,3-3,2-2,1-1,0-0,", AStarsearch(grid, src, dest));
+ }
+ @Test
+ public void ExpectedInvalid1() throws InterruptedException {
+int grid[][] =
+{
+{ 1, 1, 1, 1, 1, 0, 1, 1, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 0, 0, 0, 1 },
+{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
+};
+point src = new point(0,0);
+point dest = new point(11,-1);
+ assertEquals("Destination is invalid", AStarsearch(grid, src, dest));
+ }
+ @Test
+ public void ExpectedInvalid2() throws InterruptedException {
+int grid[][] =
+{
+{ 1, 1, 1, 1, 1, 0, 1, 1, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 0, 0, 0, 1 },
+{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
+};
+point src = new point(11,0);
+point dest = new point(6,0);
+ assertEquals("Source is invalid", AStarsearch(grid, src, dest));
+ }
+ @Test
+ public void ExpectedBlocked1() throws InterruptedException {
+int grid[][] =
+{
+{ 1, 1, 1, 1, 1, 0, 1, 1, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 0, 0, 0, 1 },
+{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
+};
+point src = new point(0,5);
+point dest = new point(6,0);
+ assertEquals("Source or the destination is blocked", AStarsearch(grid, src, dest));
+ }
 
- window.textBox("i1").enterText("-1");
- window.textBox("i2").enterText("0");
- window.textBox("i3").enterText("2");
- window.textBox("i4").enterText("2");
- window.button("Enter").click();
- window.textBox("i5").requireText("Source is invalid");
- }
- @Test
- public void ExpectFillAllBoxesAndGetInvalidDestin() throws InterruptedException {
- window.textBox("i1").enterText("1");
- window.textBox("i2").enterText("0");
- window.textBox("i3").enterText("-2");
- window.textBox("i4").enterText("2");
- window.button("Enter").click();
- window.textBox("i5").requireText("Destination is invalid");
- }
- @After
- public void tearDown() {
- window.cleanUp();
- }
 }

@@ -12,6 +12,7 @@ package tests;
 
 import com.mycompany.mavenproject2.Frame;
 import com.mycompany.mavenproject2.point;
+import static com.mycompany.mavenproject2.Frame.isNumeric;
 import static com.mycompany.mavenproject2.Program.AStarsearch;
 import com.mycompany.mavenproject2.point;
 import org.assertj.swing.edt.FailOnThreadViolationRepaintManager;

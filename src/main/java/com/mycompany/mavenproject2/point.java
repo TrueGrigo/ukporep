@@ -14,7 +14,7 @@ public class point {
     private int y;
     
     
-    point(int srcy,int rcx){
+    public point(int srcy,int rcx){
     this.x=rcx;
     this.y=srcy;
     }

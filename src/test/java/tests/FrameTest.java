@@ -115,5 +115,32 @@ point src = new point(0,5);
 point dest = new point(6,0);
  assertEquals("Source or the destination is blocked", AStarsearch(grid, src, dest));
  }
+@Test
+ public void ExpectedBlocked2() throws InterruptedException {
+int grid[][] =
+{
+{ 1, 1, 1, 1, 1, 0, 1, 1, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
+{ 1, 1, 1, 1, 1, 0, 1, 1, 0, 1 },
+{ 1, 1, 1, 1, 1, 0, 0, 0, 0, 1 },
+{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
+};
+point src = new point(0,0);
+point dest = new point(0,5);
+ assertEquals("Source or the destination is blocked", AStarsearch(grid, src, dest));
+ }
+@Test
+ public void expectedTrue() throws InterruptedException {
 
+ assertTrue(isNumeric("12"));
+ }
+@Test
+ public void expectedFalse() throws InterruptedException {
+
+ assertFalse(isNumeric("12a"));
+ }
 }
